@@ -1,7 +1,9 @@
 package oncall.service;
 
+import oncall.CalendarGenerator;
 import oncall.ErrorMessage;
 import oncall.domain.DateInfo;
+import oncall.domain.OncallRoll;
 import oncall.domain.Workers;
 
 import java.util.Arrays;
@@ -14,7 +16,7 @@ public class OncallService {
         Integer month = splitMonth(input);
         String date = splitDate(input);
 
-        return new DateInfo(month, date);
+        return new DateInfo(month, date, CalendarGenerator.getLastDate(month), CalendarGenerator.generateCalendar(month, date));
     }
 
     private Integer splitMonth(String input) {
@@ -44,5 +46,24 @@ public class OncallService {
 
     public Workers getWorkers(List<String> weekdayWorkers, List<String> weekendWorkers) {
         return new Workers(weekdayWorkers, weekendWorkers);
+    }
+
+    public OncallRoll makeOncallRoll(DateInfo dateInfo, Workers workers) {
+        OncallRoll oncallRoll = new OncallRoll(dateInfo);
+
+        int dayOffset = 0;
+        int endOffset = 0;
+        for (int i = 1; i <= dateInfo.getLastDate(); i++) {
+            if (!dateInfo.isHoliday(i)) {
+                oncallRoll.setRoll(i, workers.getWeekdayWorker(dayOffset));
+                dayOffset += 1;
+            }
+            if (dateInfo.isHoliday(i)) {
+                oncallRoll.setRoll(i, workers.getWeekendWorker(endOffset));
+                endOffset += 1;
+            }
+        }
+
+        return oncallRoll;
     }
 }

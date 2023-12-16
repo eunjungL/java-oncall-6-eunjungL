@@ -1,6 +1,8 @@
 package oncall.controller;
 
+import oncall.CalendarGenerator;
 import oncall.domain.DateInfo;
+import oncall.domain.OncallRoll;
 import oncall.domain.Workers;
 import oncall.service.OncallService;
 import oncall.view.InputView;
@@ -19,6 +21,8 @@ public class OncallController {
     public void run() {
         DateInfo dateInfo = getDateInfo();
         Workers workers = getWorkers();
+
+        getOncallRoll(dateInfo, workers);
     }
 
     private DateInfo getDateInfo() {
@@ -44,5 +48,12 @@ public class OncallController {
                 System.out.println(exception.getMessage());
             }
         }
+    }
+
+    private OncallRoll getOncallRoll(DateInfo dateInfo, Workers workers) {
+        OncallRoll oncallRoll = oncallService.makeOncallRoll(dateInfo, workers);
+
+        System.out.println(oncallRoll.toString());
+        return oncallRoll;
     }
 }
