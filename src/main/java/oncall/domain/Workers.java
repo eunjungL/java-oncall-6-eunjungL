@@ -11,15 +11,17 @@ public class Workers {
     private final List<String> weekendWorkers;
 
     public Workers(List<String> weekdayWorkers, List<String> weekendWorkers) {
-        validateWorkerNameDuplicate(weekdayWorkers);
-        validateWorkerNameDuplicate(weekendWorkers);
-        validateWorkerNumber(weekdayWorkers);
-        validateWorkerNumber(weekendWorkers);
-        validateWorkerNickNameLength(weekdayWorkers);
-        validateWorkerNickNameLength(weekendWorkers);
+        validateTemplate(weekdayWorkers);
+        validateTemplate(weekendWorkers);
 
         this.weekdayWorkers = weekdayWorkers;
         this.weekendWorkers = weekendWorkers;
+    }
+
+    private void validateTemplate(List<String> workers) {
+        validateWorkerNameDuplicate(workers);
+        validateWorkerNumber(workers);
+        validateWorkerNickNameLength(workers);
     }
 
     private void validateWorkerNameDuplicate(List<String> workers) {
