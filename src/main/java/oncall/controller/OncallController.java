@@ -1,20 +1,22 @@
 package oncall.controller;
 
-import oncall.CalendarGenerator;
 import oncall.domain.DateInfo;
 import oncall.domain.OncallRoll;
 import oncall.domain.Workers;
 import oncall.service.OncallService;
 import oncall.view.InputView;
+import oncall.view.OutputView;
 
 import java.util.List;
 
 public class OncallController {
     private final InputView inputView;
+    private final OutputView outputView;
     private final OncallService oncallService;
 
-    public OncallController(InputView inputView, OncallService oncallService) {
+    public OncallController(InputView inputView, OutputView outputView, OncallService oncallService) {
         this.inputView = inputView;
+        this.outputView = outputView;
         this.oncallService = oncallService;
     }
 
@@ -50,10 +52,9 @@ public class OncallController {
         }
     }
 
-    private OncallRoll getOncallRoll(DateInfo dateInfo, Workers workers) {
+    private void getOncallRoll(DateInfo dateInfo, Workers workers) {
         OncallRoll oncallRoll = oncallService.makeOncallRoll(dateInfo, workers);
 
-        System.out.println(oncallRoll.toString());
-        return oncallRoll;
+        outputView.printOncallRoll(oncallRoll.toString());
     }
 }
