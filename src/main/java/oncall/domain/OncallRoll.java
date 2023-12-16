@@ -20,38 +20,25 @@ public class OncallRoll {
 
     public void duplicateTradeOff(Workers workers) {
         for (int i = 2; i < dateInfo.getLastDate(); i++) {
-            if (roll.get(i-1).equals(roll.get(i))) {
-                tradeOff(i, workers);
+            if (roll.get(i-1).equals(roll.get(i)) && dateInfo.isHoliday(i)) {
+                tradeOff(DayType.WEEKEND, i, workers);
+            }
+
+            if (roll.get(i-1).equals(roll.get(i)) && !dateInfo.isHoliday(i)) {
+                tradeOff(DayType.WEEKDAY, i, workers);
             }
         }
     }
 
-    private void tradeOff(Integer i, Workers workers) {
-        if (dateInfo.isHoliday(i)) {
-            int idx = workers.getIndexByName(DayType.WEEKEND, roll.get(i));
+    private void tradeOff(DayType type, Integer i, Workers workers) {
+        int idx = workers.getIndexByName(type, roll.get(i));
 
-            roll.put(i, workers.getWeekendWorker(idx+1));
+        roll.put(i, workers.getWeekendWorker(idx+1));
 
-            for (int j = i+1; j < dateInfo.getLastDate(); j++) {
-                if (dateInfo.isHoliday(j) && roll.get(j).equals(workers.getWeekendWorker(idx+1))) {
-                    roll.put(j, workers.getWeekendWorker(idx));
-                    break;
-                }
-            }
-
-            return;
-        }
-
-        if (!dateInfo.isHoliday(i)){
-            int idx = workers.getIndexByName(DayType.WEEKDAY, roll.get(i));
-
-            roll.put(i, workers.getWeekdayWorker(idx+1));
-
-            for (int j = i+1; j < dateInfo.getLastDate(); j++) {
-                if (dateInfo.isHoliday(j) && roll.get(j).equals(workers.getWeekdayWorker(idx+1))) {
-                    roll.put(j, workers.getWeekdayWorker(idx));
-                    break;
-                }
+        for (int j = i+1; j < dateInfo.getLastDate(); j++) {
+            if (dateInfo.isHoliday(j) && roll.get(j).equals(workers.getWeekendWorker(idx+1))) {
+                roll.put(j, workers.getWeekendWorker(idx));
+                break;
             }
         }
     }

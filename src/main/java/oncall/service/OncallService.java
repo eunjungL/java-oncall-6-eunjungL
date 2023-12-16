@@ -3,6 +3,7 @@ package oncall.service;
 import oncall.CalendarGenerator;
 import oncall.ErrorMessage;
 import oncall.domain.DateInfo;
+import oncall.domain.DayType;
 import oncall.domain.OncallRoll;
 import oncall.domain.Workers;
 
@@ -55,11 +56,11 @@ public class OncallService {
         int endOffset = 0;
         for (int i = 1; i <= dateInfo.getLastDate(); i++) {
             if (!dateInfo.isHoliday(i)) {
-                oncallRoll.setRoll(i, workers.getWeekdayWorker(dayOffset));
+                oncallRoll.setRoll(i, workers.getWorkerByIndex(DayType.WEEKDAY, dayOffset));
                 dayOffset += 1;
             }
             if (dateInfo.isHoliday(i)) {
-                oncallRoll.setRoll(i, workers.getWeekendWorker(endOffset));
+                oncallRoll.setRoll(i, workers.getWorkerByIndex(DayType.WEEKEND, endOffset));
                 endOffset += 1;
             }
         }

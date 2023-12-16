@@ -42,8 +42,12 @@ public class Workers {
         }
     }
 
-    public String getWeekdayWorker(Integer index) {
-        return weekdayWorkers.get(index % weekdayWorkers.size());
+    public String getWorkerByIndex(DayType type, Integer index) {
+        if (type.equals(DayType.WEEKDAY)) {
+            return weekdayWorkers.get(index % weekdayWorkers.size());
+        }
+
+        return weekendWorkers.get(index % weekendWorkers.size());
     }
 
     public String getWeekendWorker(Integer index) {
