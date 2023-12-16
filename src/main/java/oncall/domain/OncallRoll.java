@@ -28,7 +28,7 @@ public class OncallRoll {
 
     private void tradeOff(Integer i, Workers workers) {
         if (dateInfo.isHoliday(i)) {
-            int idx = workers.getIndexByName("WEEKEND", roll.get(i));
+            int idx = workers.getIndexByName(DayType.WEEKEND, roll.get(i));
 
             roll.put(i, workers.getWeekendWorker(idx+1));
 
@@ -43,7 +43,7 @@ public class OncallRoll {
         }
 
         if (!dateInfo.isHoliday(i)){
-            int idx = workers.getIndexByName("WEEKDAY", roll.get(i));
+            int idx = workers.getIndexByName(DayType.WEEKDAY, roll.get(i));
 
             roll.put(i, workers.getWeekdayWorker(idx+1));
 
@@ -64,7 +64,7 @@ public class OncallRoll {
         for (Map.Entry<Integer, String> r : roll.entrySet()) {
             String formattingResult = "%d월 %d일 %s %s";
 
-            if (dateInfo.isHoliday(r.getKey()) && !List.of("토", "일").contains(calendar.get(r.getKey()))) {
+            if (dateInfo.isHoliday(r.getKey()) && !DayType.WEEKEND.isType(calendar.get(r.getKey()))) {
                 formattingResult = "%d월 %d일 (휴일) %s %s";
             }
 

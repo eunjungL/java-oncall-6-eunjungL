@@ -50,8 +50,8 @@ public class Workers {
         return weekendWorkers.get(index % weekendWorkers.size());
     }
 
-    public Integer getIndexByName(String type, String name) {
-        if (type.equals("WEEKEND")) {
+    public Integer getIndexByName(DayType type, String name) {
+        if (type.equals(DayType.WEEKEND)) {
             return weekendWorkers.indexOf(name);
         }
 
