@@ -43,10 +43,10 @@ public class Workers {
     }
 
     public String getWeekdayWorker(Integer index) {
-        return weekdayWorkers.get(index);
+        return weekdayWorkers.get(index % weekdayWorkers.size());
     }
 
     public String getWeekendWorker(Integer index) {
-        return weekendWorkers.get(index);
+        return weekendWorkers.get(index % weekendWorkers.size());
     }
 }
