@@ -13,7 +13,7 @@ class OncallRollTest {
     @DisplayName("중복 상관 없이 근무표 배정 테스트")
     @Test
     void setOncallRoll() {
-        DateInfo dateInfo = new DateInfo(5, "월", 31, CalendarGenerator.generateCalendar(5, "월"));
+        DateInfo dateInfo = new DateInfo(5, "월");
         Workers workers = new Workers(
                 List.of("준팍","도밥","고니","수아","루루","글로","솔로스타","우코","슬링키","참새","도리"),
                 List.of("수아","루루","글로","솔로스타","우코","슬링키","참새","도리","준팍","도밥","고니")
@@ -60,7 +60,7 @@ class OncallRollTest {
     @DisplayName("근무표 중복 처리 테스트")
     @Test
     void duplicateTradeOff() {
-        DateInfo dateInfo = new DateInfo(5, "월", 31, CalendarGenerator.generateCalendar(5, "월"));
+        DateInfo dateInfo = new DateInfo(5, "월");
         Workers workers = new Workers(
                 List.of("준팍","도밥","고니","수아","루루","글로","솔로스타","우코","슬링키","참새","도리"),
                 List.of("수아","루루","글로","솔로스타","우코","슬링키","참새","도리","준팍","도밥","고니")

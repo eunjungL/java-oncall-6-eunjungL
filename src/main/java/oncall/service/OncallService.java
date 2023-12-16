@@ -7,16 +7,14 @@ import oncall.domain.OncallRoll;
 import oncall.domain.Workers;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OncallService {
     public DateInfo getDateInfo(String input) {
         Integer month = splitMonth(input);
         String date = splitDate(input);
 
-        return new DateInfo(month, date, CalendarGenerator.getLastDate(month), CalendarGenerator.generateCalendar(month, date));
+        return new DateInfo(month, date);
     }
 
     private Integer splitMonth(String input) {

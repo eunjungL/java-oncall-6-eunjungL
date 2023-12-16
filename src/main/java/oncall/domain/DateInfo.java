@@ -1,5 +1,6 @@
 package oncall.domain;
 
+import oncall.CalendarGenerator;
 import oncall.Constants;
 import oncall.ErrorMessage;
 
@@ -11,14 +12,14 @@ public class DateInfo {
     private final Integer lastDate;
     private final Map<Integer, String> calendar;
 
-    public DateInfo(Integer month, String startDay, Integer lastDate, Map<Integer, String> calendar) {
+    public DateInfo(Integer month, String startDay) {
         validateMonthRange(month);
         validateStartDay(startDay);
 
         this.month = month;
         this.startDay = startDay;
-        this.lastDate = lastDate;
-        this.calendar = calendar;
+        this.lastDate = CalendarGenerator.getLastDate(month);
+        this.calendar = CalendarGenerator.generateCalendar(month, startDay);
     }
 
     private void validateMonthRange(Integer month) {

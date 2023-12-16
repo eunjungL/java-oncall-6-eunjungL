@@ -13,7 +13,7 @@ class DateInfoTest {
     @ValueSource(ints = {0, 40, 13})
     void monthErrorTest(Integer month) {
         assertThatThrownBy(() ->
-                new DateInfo(month, "월", 31, CalendarGenerator.generateCalendar(1, "월"))
+                new DateInfo(month, "월")
         ).isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -22,7 +22,7 @@ class DateInfoTest {
     @ValueSource(strings = {"dnjf", "월월", "회"})
     void dayErrorTest(String day) {
         assertThatThrownBy(() ->
-                new DateInfo(1, day, 31, CalendarGenerator.generateCalendar(1, "월"))
+                new DateInfo(1, day)
         ).isInstanceOf(IllegalArgumentException.class);
     }
 }
