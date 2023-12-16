@@ -62,7 +62,13 @@ public class OncallRoll {
 
         Map<Integer, String> calendar = dateInfo.getCalendar();
         for (Map.Entry<Integer, String> r : roll.entrySet()) {
-            result.add(String.format("%d월 %d일 %s %s", dateInfo.getMonth(), r.getKey(), calendar.get(r.getKey()), r.getValue()));
+            String formattingResult = "%d월 %d일 %s %s";
+
+            if (dateInfo.isHoliday(r.getKey()) && !List.of("토", "일").contains(calendar.get(r.getKey()))) {
+                formattingResult = "%d월 %d일 (휴일) %s %s";
+            }
+
+            result.add(String.format(formattingResult, dateInfo.getMonth(), r.getKey(), calendar.get(r.getKey()), r.getValue()));
         }
 
         return String.join("\n", result);
