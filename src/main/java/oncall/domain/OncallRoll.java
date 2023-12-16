@@ -8,10 +8,6 @@ import java.util.Map;
 public class OncallRoll {
     private final DateInfo dateInfo;
     private final Map<Integer, String> roll;
-    public Boolean weekdayTradeOff;
-    public Boolean weekendTradeOff;
-    public Integer weekdayOffset;
-    public Integer weekendOffset;
 
     public OncallRoll(DateInfo dateInfo) {
         this.dateInfo = dateInfo;
@@ -20,6 +16,44 @@ public class OncallRoll {
 
     public void setRoll(Integer date, String name) {
         roll.put(date, name);
+    }
+
+    public void duplicateTradeOff(Workers workers) {
+        for (int i = 2; i < dateInfo.getLastDate(); i++) {
+            if (roll.get(i-1).equals(roll.get(i))) {
+                tradeOff(i, workers);
+            }
+        }
+    }
+
+    private void tradeOff(Integer i, Workers workers) {
+        if (dateInfo.isHoliday(i)) {
+            int idx = workers.getIndexByName("WEEKEND", roll.get(i));
+
+            roll.put(i, workers.getWeekendWorker(idx+1));
+
+            for (int j = i+1; j < dateInfo.getLastDate(); j++) {
+                if (dateInfo.isHoliday(j) && roll.get(j).equals(workers.getWeekendWorker(idx+1))) {
+                    roll.put(j, workers.getWeekendWorker(idx));
+                    break;
+                }
+            }
+
+            return;
+        }
+
+        if (!dateInfo.isHoliday(i)){
+            int idx = workers.getIndexByName("WEEKDAY", roll.get(i));
+
+            roll.put(i, workers.getWeekdayWorker(idx+1));
+
+            for (int j = i+1; j < dateInfo.getLastDate(); j++) {
+                if (dateInfo.isHoliday(j) && roll.get(j).equals(workers.getWeekdayWorker(idx+1))) {
+                    roll.put(j, workers.getWeekdayWorker(idx));
+                    break;
+                }
+            }
+        }
     }
 
     @Override

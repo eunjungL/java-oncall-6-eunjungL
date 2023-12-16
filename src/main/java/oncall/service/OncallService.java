@@ -64,6 +64,8 @@ public class OncallService {
             }
         }
 
+        oncallRoll.duplicateTradeOff(workers);
+
         return oncallRoll;
     }
 }

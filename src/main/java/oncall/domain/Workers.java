@@ -49,4 +49,12 @@ public class Workers {
     public String getWeekendWorker(Integer index) {
         return weekendWorkers.get(index % weekendWorkers.size());
     }
+
+    public Integer getIndexByName(String type, String name) {
+        if (type.equals("WEEKEND")) {
+            return weekendWorkers.indexOf(name);
+        }
+
+        return weekdayWorkers.indexOf(name);
+    }
 }
