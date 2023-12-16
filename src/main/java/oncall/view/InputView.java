@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class InputView {
     public String getOncallDate() {
-        System.out.println(Constants.GET_ONCALL_DATE_COMMENT);
+        System.out.print(Constants.GET_ONCALL_DATE_COMMENT);
         String input = Console.readLine();
 
         validateDateSplit(input);
@@ -28,7 +28,7 @@ public class InputView {
     }
 
     public List<String> getWeekdayWorkers() {
-        System.out.println(Constants.GET_WEEKDAY_WORKER_COMMENT);
+        System.out.print(Constants.GET_WEEKDAY_WORKER_COMMENT);
         String input = Console.readLine();
 
         validateWorkerSplit(input);
@@ -36,7 +36,7 @@ public class InputView {
     }
 
     public List<String> getWeekEndWorkers() {
-        System.out.println(Constants.GET_WEEKEND_WORKER_COMMENT);
+        System.out.print(Constants.GET_WEEKEND_WORKER_COMMENT);
         String input = Console.readLine();
 
         validateWorkerSplit(input);
