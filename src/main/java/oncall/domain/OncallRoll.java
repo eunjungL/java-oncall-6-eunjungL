@@ -69,7 +69,7 @@ public class OncallRoll {
             String formattingResult = "%d월 %d일 %s %s";
 
             if (dateInfo.isHoliday(r.getKey()) && !DayType.WEEKEND.isType(calendar.get(r.getKey()))) {
-                formattingResult = "%d월 %d일 (휴일) %s %s";
+                formattingResult = "%d월 %d일 %s(휴일) %s";
             }
 
             result.add(String.format(formattingResult, dateInfo.getMonth(), r.getKey(), calendar.get(r.getKey()), r.getValue()));
