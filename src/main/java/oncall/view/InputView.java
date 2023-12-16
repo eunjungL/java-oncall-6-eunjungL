@@ -26,4 +26,26 @@ public class InputView {
             throw new IllegalArgumentException(ErrorMessage.INPUT_ERROR);
         }
     }
+
+    public List<String> getWeekdayWorkers() {
+        System.out.println(Constants.GET_WEEKDAY_WORKER_COMMENT);
+        String input = Console.readLine();
+
+        validateWorkerSplit(input);
+        return List.of(input.split(","));
+    }
+
+    public List<String> getWeekEndWorkers() {
+        System.out.println(Constants.GET_WEEKEND_WORKER_COMMENT);
+        String input = Console.readLine();
+
+        validateWorkerSplit(input);
+        return List.of(input.split(","));
+    }
+
+    private void validateWorkerSplit(String input) {
+        if (!input.contains(",")) {
+            throw new IllegalArgumentException(ErrorMessage.INPUT_ERROR);
+        }
+    }
 }

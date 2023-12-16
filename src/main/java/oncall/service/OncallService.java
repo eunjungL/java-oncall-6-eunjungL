@@ -2,6 +2,7 @@ package oncall.service;
 
 import oncall.ErrorMessage;
 import oncall.domain.DateInfo;
+import oncall.domain.Workers;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,5 +40,9 @@ public class OncallService {
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException(ErrorMessage.INPUT_ERROR);
         }
+    }
+
+    public Workers getWorkers(List<String> weekdayWorkers, List<String> weekendWorkers) {
+        return new Workers(weekdayWorkers, weekendWorkers);
     }
 }

@@ -1,8 +1,11 @@
 package oncall.controller;
 
 import oncall.domain.DateInfo;
+import oncall.domain.Workers;
 import oncall.service.OncallService;
 import oncall.view.InputView;
+
+import java.util.List;
 
 public class OncallController {
     private final InputView inputView;
@@ -15,6 +18,7 @@ public class OncallController {
 
     public void run() {
         DateInfo dateInfo = getDateInfo();
+        Workers workers = getWorkers();
     }
 
     private DateInfo getDateInfo() {
@@ -29,5 +33,16 @@ public class OncallController {
         }
     }
 
+    private Workers getWorkers() {
+        while (true) {
+            try {
+                List<String> weekdayWorkers = inputView.getWeekdayWorkers();
+                List<String> weekendWorkers = inputView.getWeekEndWorkers();
 
+                return oncallService.getWorkers(weekdayWorkers, weekendWorkers);
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
+        }
+    }
 }
