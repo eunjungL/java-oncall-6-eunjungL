@@ -35,7 +35,7 @@ public class DateInfo {
     }
 
     public Boolean isHoliday(Integer date) {
-        if (List.of("토", "일").contains(calendar.get(date))) {
+        if (DayType.WEEKEND.isType(calendar.get(date))) {
             return true;
         }
 
