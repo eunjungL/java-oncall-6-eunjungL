@@ -3,7 +3,6 @@ package oncall.domain;
 import oncall.Constants;
 import oncall.ErrorMessage;
 
-import java.util.List;
 import java.util.Map;
 
 public class DateInfo {

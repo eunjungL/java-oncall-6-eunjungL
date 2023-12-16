@@ -20,8 +20,6 @@ public class OncallService {
     }
 
     private Integer splitMonth(String input) {
-        Map<Integer, String> result = new HashMap<>();
-
         List<String> monthAndDate = Arrays.stream(input.split(",")).toList();
         validMonthIsInteger(monthAndDate.get(0));
 
@@ -29,8 +27,6 @@ public class OncallService {
     }
 
     private String splitDate(String input) {
-        Map<Integer, String> result = new HashMap<>();
-
         List<String> monthAndDate = Arrays.stream(input.split(",")).toList();
 
         return monthAndDate.get(1);
