@@ -14,7 +14,24 @@ public class OncallRoll {
         this.roll = new HashMap<>();
     }
 
-    public void setRoll(Integer date, String name) {
+    public void setOncallRoll(Workers workers) {
+        int dayOffset = 0;
+        int endOffset = 0;
+
+        for (int i = 1; i <= dateInfo.getLastDate(); i++) {
+            if (!dateInfo.isHoliday(i)) {
+                setRoll(i, workers.getWorkerByIndex(DayType.WEEKDAY, dayOffset));
+                dayOffset += 1;
+            }
+
+            if (dateInfo.isHoliday(i)) {
+                setRoll(i, workers.getWorkerByIndex(DayType.WEEKEND, endOffset));
+                endOffset += 1;
+            }
+        }
+    }
+
+    private void setRoll(Integer date, String name) {
         roll.put(date, name);
     }
 
